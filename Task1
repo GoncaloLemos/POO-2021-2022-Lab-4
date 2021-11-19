@@ -1,0 +1,67 @@
+@startuml
+interface Employee {
+    +String getName()
+    +String getId()
+    +double getCurrentMonthSalary()
+}
+
+abstract class EmployeeClass {
+    -String name
+    -String id
+    -Collection<Salary> salaries
+    +String getName()
+    +String getId()
+    +double getCurrentMonthSalary()
+}
+
+Employee <|.. EmployeeClass
+
+class Salary {
+    -Date date
+    -double value
+    +Date getDate()
+    +double getValue()
+}
+
+EmployeeClass "1" -- "0..*" Salary
+
+class SalesPerson {
+    -Collection<Sale> sales
+    +double getCurrentMonthSalary()
+}
+
+class Sale {
+    -SalesPerson salesPerson
+    -double commission
+    -Date date
+    -Collection<Product> products
+    +SalesPerson getSalesPerson()
+    +double getCommission()
+    +Date getDate()
+    +Collection<Product> getProducts()
+}
+
+SalesPerson "1" -- "0..*" Sale
+
+class Clerk {
+    -Collection<ProductivityReport> reports
+    +double getCurrentMonthSalary()
+}
+class ProductivityReport{
+    -Date date
+    -double score
+    -Clerk clerk
+    +Date getDate()
+    +double getScore()
+    +Clerk getClerk()
+
+}
+
+Clerk "1" -- "0..*" ProductivityReport
+
+class WarehouseWorker {}
+
+EmployeeClass <|-- SalesPerson
+EmployeeClass <|-- Clerk
+EmployeeClass <|-- WarehouseWorker
+@enduml
